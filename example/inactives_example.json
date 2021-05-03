@@ -1,0 +1,15 @@
+{   
+    "_index": "inactive-20_04_2", 
+    "_type": "_doc", 
+    "_id": "DhN873EBQulJktXfe7QV", 
+    "_score": 1.0, 
+    "_source": {
+        "id_str": "1250125137728491520", 
+        "meta": {
+            "deleted": "True", 
+            "found_at": "Thu May 07 14:14:03 +0000 2020", 
+            "jitter": 4, 
+            "age_h": 548.0
+        }
+    }
+}
