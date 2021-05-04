@@ -41,8 +41,6 @@ for i in range(len(inactives)):
 df.to_pickle("./pickle/inactives_key_data_0-5k.pickle")
 
 
-
-
 #       ----- ***** -----
 #       User objs Section
 #       ----- ***** -----
@@ -52,7 +50,6 @@ user_objs = pd.read_pickle("./pickle/user_objects_0-5k.pickle")
 
 # A dataframe is created to hold important information
 df = pd.DataFrame(columns=('_id', 'created_at', 'favourites_count', 'followers_count', 'friends_count', 'found_at', 'age_h'))
-
 
 
 # Browse the entire pickle file by selecting and saving the important information for the purpose
