@@ -6,7 +6,6 @@ import pickle5 as pickle
 #       Inactives Section
 #       ----- ***** -----
 
-
 # Unpickling data
 inactives = pd.read_pickle('./pickle/inactives_0-5k.pickle')
 
