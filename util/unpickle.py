@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import pickle5 as pickle
 
-"""
 
 #       ----- ***** -----
 #       Inactives Section
@@ -47,7 +46,7 @@ with open('./pickle/inactives_key_data_0-5k.pickle', 'wb') as g:
     pickle.dump(inactives_list, g)
 
 
-"""
+
 
 #       ----- ***** -----
 #       User objs Section
