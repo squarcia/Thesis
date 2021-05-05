@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import pickle5 as pickle
 from datetime import datetime
-"""
+
 
 #   ----- *** -----
 #      Inactives
@@ -22,7 +22,7 @@ for i, row in df_inactives.iterrows():
 with open('./pickle/inactives_key_data_0-5k.pickle', 'wb') as g:
     pickle.dump(df_inactives, g)
 
-"""
+
 
 #   ----- *** -----
 #      User Objs
