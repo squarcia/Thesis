@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 import pickle5 as pickle
 
+"""
+
 #       ----- ***** -----
 #       Inactives Section
 #       ----- ***** -----
@@ -19,7 +21,7 @@ for i in range(len(inactives)):
     dic = inactives[i]
 
     # Get the id of the profile
-    _id = dic["_id"]
+    id = dic["_source"]["id_str"]
 
     # Get the deleted value
     deleted = dic["_source"]["meta"]["deleted"]
@@ -31,7 +33,7 @@ for i in range(len(inactives)):
     age_h = dic["_source"]["meta"]["age_h"]
 
     # Create new dict 
-    new_row = { "_id": _id,
+    new_row = { "id": id,
                 "deleted": deleted, 
                 "found_at": found_at, 
                 "age_h": age_h
@@ -45,8 +47,7 @@ with open('./pickle/inactives_key_data_0-5k.pickle', 'wb') as g:
     pickle.dump(inactives_list, g)
 
 
-
-
+"""
 
 #       ----- ***** -----
 #       User objs Section
@@ -65,7 +66,7 @@ for i in range(len(user_objs)):
     dic = user_objs[i]
 
     # Get the id of the profile
-    _id = dic["_id"]
+    id = dic["_source"]["id_str"]
 
     # Get the creation date
     created_at = dic["_source"]["created_at"]
@@ -86,12 +87,12 @@ for i in range(len(user_objs)):
     age_h = dic["_source"]["meta"]["age_h"]
 
     # Create new dict 
-    new_row = { "_id": _id,
+    new_row = { "id": id,
                 "created_at": created_at,
                 "favourites_count": tweetsLiked,
                 "followers_count": followersCount,
                 "friends_count": friendsCount, 
-                "found_at": created_at, 
+                "found_at": found_at, 
                 "age_h": age_h
     }
 
