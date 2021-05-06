@@ -79,6 +79,9 @@ for i in range(len(user_objs)):
     # Get the number of friends
     friendsCount = dic["_source"]["friends_count"]
 
+    # Get the number of tweets
+    statuses_count = dic["_source"]["statuses_count"]
+
     # Get the found_at date
     found_at = dic["_source"]["meta"]["found_at"]
 
@@ -91,6 +94,7 @@ for i in range(len(user_objs)):
                 "favourites_count": tweetsLiked,
                 "followers_count": followersCount,
                 "friends_count": friendsCount, 
+                "statuses_count": statuses_count,
                 "found_at": found_at, 
                 "age_h": age_h
     }
