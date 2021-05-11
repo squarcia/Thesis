@@ -2,7 +2,8 @@ import pandas as pd
 import numpy as np
 import pickle5 as pickle
 from datetime import datetime
-from util.calculate import calculateFollowersPerDays as calculateFollowers
+import util.calculate as cf
+import util.showStats as sS
 import matplotlib
 import matplotlib.pyplot as plt
 
@@ -27,57 +28,20 @@ df_user_objs = df_user_objs[df_user_objs['age_h'] <= 672]
 groupby_df = df_user_objs.groupby("id", as_index=False)
 
 
-
-
 #           ----- *** -----
-#      Media e Dev. Std primi 7gg
+#      Media e Dev. Std primi 7gg/28gg
 #           ----- *** -----
 
-_list = calculateFollowers(groupby_df)
+_list_days = cf.calculateFollowersPerDays(groupby_df)
+_list_weeks = cf.calculateFollowersPerWeeks(groupby_df)
 
-# Create the average Dataframe
-df_followers_7gg = pd.DataFrame(_list)
+# Create the average days Dataframe
+df_followers_7gg = pd.DataFrame(_list_days)
 
-# +++++ È utile per vedere quali profili hanno più followers (serve per verifica dev. std) +++++
-#print(df_followers_7gg.nlargest(10, '1Day'))
+# Create the average weeks Dataframe
+df_followers_4week = pd.DataFrame(_list_weeks)
 
-# Calculate, for each column, standard deviation
-stds_array = df_followers_7gg.std()
-
-# Calculate, for each column, average
-df_avg_days = df_followers_7gg.mean()
-df_avg_days_new = np.array(df_avg_days.values)
-
-# Delete the inf value at the top of array
-avg_array = np.delete(df_avg_days_new, 0)
-
-days = range(1, 8)
-
-# Plot mean
-plt.plot(days, avg_array, label = "Avg")
-
-# Plot std dev
-plt.plot(days, stds_array, label = "Dev. Std.")
-
-# Set x-label
-plt.xlabel('Days')
-
-# Set y-label
-plt.ylabel('Followers')
-
-# Set title
-plt.title('Average and dev. std. followers')
-
-# Set legend
-plt.legend()
-
-# Show plot
-plt.show()
-
-
-
-
-
-
+sS.showDaysStats(df_followers_7gg)
+sS.showWeeksStats(df_followers_4week)
 
 
