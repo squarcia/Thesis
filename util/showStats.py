@@ -2,6 +2,9 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 
+#   Bool field
+#   1 = Days
+#   0 = Weeks
 
 def show(df_followers, bool):
 
