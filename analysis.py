@@ -39,7 +39,7 @@ df_followers_7gg = pd.DataFrame(_list_days)
 # Create the average weeks Dataframe
 df_followers_4week = pd.DataFrame(_list_weeks)
 
-sS.showDaysStats(df_followers_7gg)
-sS.showWeeksStats(df_followers_4week)
+sS.show(df_followers_7gg, 1)
+sS.show(df_followers_4week, 0)
 
 
