@@ -4,8 +4,6 @@ import pickle5 as pickle
 from datetime import datetime
 import util.calculate as cf
 import util.showStats as sS
-import matplotlib
-import matplotlib.pyplot as plt
 
 # Create the inactives Dataframe
 inactives = pd.read_pickle("./pickle/inactives_key_data_0-5k.pickle")
