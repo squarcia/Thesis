@@ -26,20 +26,72 @@ df_user_objs = df_user_objs[df_user_objs['age_h'] <= 672]
 groupby_df = df_user_objs.groupby("id", as_index=False)
 
 
-#           ----- *** -----
-#      Media e Dev. Std primi 7gg/28gg
-#           ----- *** -----
 
-_list_days = cf.calculateFollowersPerDays(groupby_df)
-_list_weeks = cf.calculateFollowersPerWeeks(groupby_df)
+#            ----- *** -----
+#     Create Dataframes for analysis          
+#            ----- *** -----
+
+
+# Get aggregate data for followers_count field
+_list_days_followers = cf.calculateFollowersPerDays(groupby_df)
+_list_weeks_followers = cf.calculateFollowersPerWeeks(groupby_df)
+
+
+# Get aggregate data for friend_count field
+_list_days_friends_ = cf.calculateFriendsPerDays(groupby_df)
+_list_weeks_friends = cf.calculateFriendsPerWeeks(groupby_df)
+
+
+# Get aggregate data for statuses_count field
+_list_days_tweets = cf.calculateTweetsPerDays(groupby_df)
+_list_weeks_tweets = cf.calculateTweetsPerWeeks(groupby_df)
+
+
+
+
+
+#   ---------- *** ----------
+#     SHOWS FOLLOWERS STATS
+#   ---------- *** ----------
 
 # Create the average days Dataframe
-df_followers_7gg = pd.DataFrame(_list_days)
+df_followers_7gg = pd.DataFrame(_list_days_followers)
 
 # Create the average weeks Dataframe
-df_followers_4week = pd.DataFrame(_list_weeks)
+df_followers_4week = pd.DataFrame(_list_weeks_followers)
 
-sS.show(df_followers_7gg, 1)
-sS.show(df_followers_4week, 0)
+sS.show(df_followers_7gg, "first_week", "Followers")
+sS.show(df_followers_4week, "first_month", "Followers")
 
+
+
+#   ---------- *** ----------
+#       SHOWS FRIENDS STATS
+#   ---------- *** ----------
+
+
+# Create the average days Dataframe
+df_friends_7gg = pd.DataFrame(_list_days_friends_)
+
+# Create the average weeks Dataframe
+df_friends_4week = pd.DataFrame(_list_weeks_friends)
+
+sS.show(df_friends_7gg, "first_week", "Friends")
+sS.show(df_friends_4week, "first_month", "Friends")
+
+
+
+#   ---------- *** ----------
+#       SHOWS TWEETS STATS
+#   ---------- *** ----------
+
+
+# Create the average days Dataframe
+df_tweets_7gg = pd.DataFrame(_list_days_tweets)
+
+# Create the average weeks Dataframe
+df_tweets_4week = pd.DataFrame(_list_weeks_tweets)
+
+sS.show(df_tweets_7gg, "first_week", "Tweets")
+sS.show(df_tweets_4week, "first_month", "Tweets")
 

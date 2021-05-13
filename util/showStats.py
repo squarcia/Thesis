@@ -1,58 +1,85 @@
 import numpy as np
-import matplotlib
 import matplotlib.pyplot as plt
 
-#   Bool field
-#   1 = Days
-#   0 = Weeks
+#   TIPS: 
+#   
+#   PERIOD: 
+#       - first_week: show first 7 days
+#       - first_month: show first 4 weeks
+#
+#   TYPE: 
+#       - Word used on y axis on graphs
 
-def show(df_followers, bool):
 
-    # +++++ È utile per vedere quali profili hanno più followers (serve per verifica dev. std) +++++
-    #print(df_followers_7gg.nlargest(10, '1Day'))
+def show(df, period, type):
 
-    # Calculate, for each column, standard deviation
-    stds_array = df_followers.std()
+    array_columns = []
 
-    # Calculate, for each column, average
-    df_avg = df_followers.mean()
+    for column in df.columns[1:]:
+
+        # Convert Series to array
+        temp = df[column].to_numpy()
+
+        # Filter and remove all the NaN values (due to boxplot error)
+        filtered_data = temp[~np.isnan(temp)]
+
+        # Add element to list
+        array_columns.append(filtered_data)
+    
+
+    # Set plot settings
+    fig, ax = plt.subplots()
+
+    if (period == "first_week"):
+
+        ax.set_title('First Week')
+        ax.set_xlabel('Days')
+        
+    elif (period == "first_month"):
+
+        ax.set_title('First Four Weeks')
+        ax.set_xlabel('Weeks')
+
+    # Get type value and display it on y axis
+    ax.set_ylabel(type)
+    
+    # Plot 
+    ax.boxplot(array_columns, showfliers=True)
+
+
+
+#   ---------- *** ----------
+#   CALCULATE AGGREGATE VALUES
+#   ---------- *** ----------
+
+
+    # Calculate avg for each days/weeks
+    df_avg = df.mean()
     df_avg_new = np.array(df_avg.values)
-
-    # Delete the inf value at the top of array
     avg_array = np.delete(df_avg_new, 0)
 
-    if (bool): 
+    # Calculate std. dev for each days/weeks
+    stds_array = df.std().to_numpy()
+    
+    # Calculate max for each days/weeks
+    _max = np.array(df.max())
+    _max_weeks = np.delete(_max, 0)
 
-        days = range(1, 8)
+    row_labels=['Avg','Std. Dev.','Max']
 
-        # Plot mean
-        plt.plot(days, avg_array, label = "Avg")
+    if (period == "first_week"):
+        col_labels=["1Day", "2Day", "3Day", "4Day", "5Day", "6Day", "7Day"]
+    elif (period == "first_month"):
+        col_labels=['1Week','2Week','3Week', "4Week"]
 
-        # Plot std dev
-        plt.plot(days, stds_array, label = "Dev. Std.")
+    # Generate plot 
+    fig1, ax1 = plt.subplots(1,1)
 
-        plt.xlabel('Days')
+    # Create table values
+    table_vals = [avg_array, stds_array, _max_weeks]
 
-    else:
+    # Create table
+    ax1.table(cellText=table_vals, colLabels=col_labels, rowLabels=row_labels, loc="center")
 
-        weeks = range(1, 5)
-
-        # Plot mean
-        plt.plot(weeks, avg_array, label = "Avg")
-
-        # Plot std dev
-        plt.plot(weeks, stds_array, label = "Dev. Std.")
-
-        plt.xlabel('Weeks')  
-
-    # Set y-label
-    plt.ylabel('Followers')
-
-    # Set title
-    plt.title('Average and dev. std. followers')
-
-    # Set legend
-    plt.legend()
-
-    # Show plot
+    # Show plots
     plt.show()
