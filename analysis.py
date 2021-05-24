@@ -25,6 +25,8 @@ df_user_objs = df_user_objs[df_user_objs['age_h'] <= 672]
 # 5000 user --> OK!
 groupby_df = df_user_objs.groupby("id", as_index=False)
 
+# 5000 user --> OK!
+groupby_df_inactives = df_inactives.groupby("id", as_index=False)
 
 
 #            ----- *** -----
@@ -48,8 +50,6 @@ _list_weeks_tweets = cf.calculateTweetsPerWeeks(groupby_df)
 
 
 
-
-
 #   ---------- *** ----------
 #     SHOWS FOLLOWERS STATS
 #   ---------- *** ----------
@@ -60,8 +60,8 @@ df_followers_7gg = pd.DataFrame(_list_days_followers)
 # Create the average weeks Dataframe
 df_followers_4week = pd.DataFrame(_list_weeks_followers)
 
-sS.show(df_followers_7gg, "first_week", "Followers")
-sS.show(df_followers_4week, "first_month", "Followers")
+sS.showBoxPlots(df_followers_7gg, "first_week", "Followers")
+sS.showBoxPlots(df_followers_4week, "first_month", "Followers")
 
 
 
@@ -76,8 +76,8 @@ df_friends_7gg = pd.DataFrame(_list_days_friends_)
 # Create the average weeks Dataframe
 df_friends_4week = pd.DataFrame(_list_weeks_friends)
 
-sS.show(df_friends_7gg, "first_week", "Friends")
-sS.show(df_friends_4week, "first_month", "Friends")
+sS.showBoxPlots(df_friends_7gg, "first_week", "Friends")
+sS.showBoxPlots(df_friends_4week, "first_month", "Friends")
 
 
 
@@ -92,6 +92,51 @@ df_tweets_7gg = pd.DataFrame(_list_days_tweets)
 # Create the average weeks Dataframe
 df_tweets_4week = pd.DataFrame(_list_weeks_tweets)
 
-sS.show(df_tweets_7gg, "first_week", "Tweets")
-sS.show(df_tweets_4week, "first_month", "Tweets")
+sS.showBoxPlots(df_tweets_7gg, "first_week", "Tweets")
+sS.showBoxPlots(df_tweets_4week, "first_month", "Tweets")
+
+
+
+#   ---------- *** ----------
+#        SHOWS HISTOGRAMS
+#   ---------- *** ----------
+
+
+# Tweets
+sS.showBins(groupby_df, 'statuses_count')
+
+# Followers
+sS.showBins(groupby_df, 'followers_count')
+
+# Friends
+sS.showBins(groupby_df, 'friends_count')
+
+
+
+#   ---------- *** ----------
+#        WORD CLOUD TWEETS
+#   ---------- *** ----------
+
+"""
+top_20 = df_tweets_4week.nlargest(20, "4Week")
+#print(top_20)
+
+print(df_inactives.loc[df_inactives['id'] == "1250135363785355264"])
+
+last_items_each_groups = pd.DataFrame(groupby_df_inactives.last())
+#print(last_items_each_groups)
+top_20 = top_20.merge(last_items_each_groups, how='inner', on='id')
+print(top_20)
+
+
+
+top_20 = df_followers_7gg.nlargest(20, "7Day")
+#print(top_20)
+last_items_each_groups = pd.DataFrame(groupby_df_inactives.last())
+#print(last_items_each_groups)
+top_20 = top_20.merge(last_items_each_groups, how='inner', on='id')
+print(top_20)
+"""
+
+
 

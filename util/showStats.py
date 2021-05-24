@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import util.calculate as cf
 
 #   TIPS: 
 #   
@@ -11,7 +12,7 @@ import matplotlib.pyplot as plt
 #       - Word used on y axis on graphs
 
 
-def show(df, period, type):
+def showBoxPlots(df, period, type):
 
     array_columns = []
 
@@ -48,9 +49,9 @@ def show(df, period, type):
 
 
 
-#   ---------- *** ----------
-#   CALCULATE AGGREGATE VALUES
-#   ---------- *** ----------
+    #   ---------- *** ----------
+    #   CALCULATE AGGREGATE VALUES
+    #   ---------- *** ----------
 
 
     # Calculate avg for each days/weeks
@@ -83,3 +84,52 @@ def show(df, period, type):
 
     # Show plots
     plt.show()
+
+
+def showBins(groupby_df, type):
+
+    bins_1st_day, bins_7_days, bins_28_days =  cf.getBins(groupby_df, type)
+
+    
+    plt.hist(bins_1st_day, bins=range(0, max(bins_1st_day) + 10, 10), log=True)
+    #plt.xticks(range(0, max(arr) + 10, 10))
+    if (type == "statuses_count"):
+        plt.title("Tweets 1st Day")
+    elif (type == "followers_count"):
+        plt.title("Followers 1st Day")
+    else:
+        plt.title("Friends 1st Day")
+
+    plt.ylabel("Counts")
+    plt.xlabel("Bins")
+    plt.grid(True) 
+    plt.show()
+
+    plt.hist(bins_7_days, bins=range(0, max(bins_7_days) + 10, 10), log=True)
+    #plt.xticks(range(0, max(arr) + 10, 10))
+    if (type == "statuses_count"):
+        plt.title("Tweets 7 Days")
+    elif (type == "followers_count"):
+        plt.title("Followers 7 Days")
+    else:
+        plt.title("Friends 7 Days")
+        
+    plt.ylabel("Counts")
+    plt.xlabel("Bins")
+    plt.grid(True) 
+    plt.show()
+
+    plt.hist(bins_28_days, bins=range(0, max(bins_28_days) + 10, 10), log=True)
+    #plt.xticks(range(0, max(arr) + 10, 10))
+    if (type == "statuses_count"):
+        plt.title("Tweets 28 Days")
+    elif (type == "followers_count"):
+        plt.title("Followers 28 Days")
+    else:
+        plt.title("Friends 28 Days")
+        
+    plt.ylabel("Counts")
+    plt.xlabel("Bins")
+    plt.grid(True) 
+    plt.show()
+    

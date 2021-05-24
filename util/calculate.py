@@ -33,7 +33,7 @@ def calculateFollowersPerDays(groups):
             # If day X is not present, it means that the profile has been suspended/deleted
             if (day.empty == True):
                 # Pandas will automatically exclude NaN numbers from aggregation functions
-                diff = float("NaN")
+                followers = float("NaN")
             else:
                 followers = int(day['followers_count'])
                 #print(followers)
@@ -287,3 +287,51 @@ def calculateTweetsPerWeeks(groups):
         j = 0
 
     return list_of_tweets
+
+
+
+
+def getBins(groupby_df, type):
+
+    bins_1st_day = calculateBins(groupby_df, 0, 48, type) 
+        
+    bins_7_days = calculateBins(groupby_df, 0, 192, type) 
+
+    bins_28_days = calculateBins(groupby_df, 0, 696, type) 
+
+
+    return bins_1st_day, bins_7_days, bins_28_days
+
+
+def calculateBins(groups, x, y, type):
+
+    arr = []
+
+    for id, group in groups:
+        
+        i = x
+        # Begin: 0
+        # Finish: 168
+        # Step: 24 = 1 day
+
+        # Non avrebbe senso eseguire un for su questo insieme perchè basterebbe
+        # prendere solo il giorno 7 e vedere quanti tweet/followers/ etc hanno acquistato
+        # Però lo facciamo perchè non sappiamo in realtà quando un profilo viene sospeso/cancellato
+        for i in range(i, y, 24):
+
+            day = group.loc[group['age_h'] == i]
+            #print(day)
+
+            # If day X is not present, it means that the profile has been suspended/deleted
+            if (day.empty == True):
+                # It means that the account is deleted/suspended --> irrelevant for count the tweets
+                break
+
+            else:
+                stats = int(day[type])
+                #print(tweets)
+
+                arr.append(stats)
+    
+    return arr
+
