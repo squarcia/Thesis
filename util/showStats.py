@@ -82,6 +82,8 @@ def showBoxPlots(df, period, type):
     # Create table
     ax1.table(cellText=table_vals, colLabels=col_labels, rowLabels=row_labels, loc="center")
 
+    plt.axis('off')
+
     # Show plots
     plt.show()
 

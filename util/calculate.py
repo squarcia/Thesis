@@ -5,6 +5,27 @@ import numpy as np
 keys_d = ["1Day", "2Day", "3Day", "4Day", "5Day", "6Day", "7Day"]
 keys_w = ["1Week", "2Week", "3Week", "4Week"]
 
+# Function returning a list containing protected profile identifiers
+def deleteProtectedAccounts(df):
+
+    # List of ids
+    list_of_id_protected = []
+
+    # Create the groups
+    groups = df.groupby("id", as_index=False)
+    
+    # For each group I check if the profile is protected or not
+    for id, group in groups:
+
+        for row in group.itertuples():
+        
+            # If it is protected I add the id to the list
+            if (row.protected == True):
+                list_of_id_protected.append(id)
+                break
+    
+    return list_of_id_protected
+        
 # Function that averages the followers of each profile for each day, for the first seven days
 def calculateFollowersPerDays(groups):
 
@@ -21,6 +42,10 @@ def calculateFollowersPerDays(groups):
 
         # Get the id of the user
         dic["id"] = id
+
+        #protected = group["protected"].isin(['True'])
+        print(group)
+    
 
         # Begin: 24
         # Finish: 168
@@ -289,8 +314,7 @@ def calculateTweetsPerWeeks(groups):
     return list_of_tweets
 
 
-
-
+# Function that returns the bins for the first day, the first week and the first 28 days
 def getBins(groupby_df, type):
 
     bins_1st_day = calculateBins(groupby_df, 0, 48, type) 
@@ -302,7 +326,7 @@ def getBins(groupby_df, type):
 
     return bins_1st_day, bins_7_days, bins_28_days
 
-
+# Function that calculates bins for the first day, the first week and the first 28 days
 def calculateBins(groups, x, y, type):
 
     arr = []
@@ -310,13 +334,10 @@ def calculateBins(groups, x, y, type):
     for id, group in groups:
         
         i = x
-        # Begin: 0
-        # Finish: 168
-        # Step: 24 = 1 day
 
-        # Non avrebbe senso eseguire un for su questo insieme perchè basterebbe
-        # prendere solo il giorno 7 e vedere quanti tweet/followers/ etc hanno acquistato
-        # Però lo facciamo perchè non sappiamo in realtà quando un profilo viene sospeso/cancellato
+        # Begin: x
+        # Finish: y
+        # Step: 24 = 1 day
         for i in range(i, y, 24):
 
             day = group.loc[group['age_h'] == i]
@@ -329,7 +350,7 @@ def calculateBins(groups, x, y, type):
 
             else:
                 stats = int(day[type])
-                #print(tweets)
+                #print(stats)
 
                 arr.append(stats)
     

@@ -73,6 +73,8 @@ for i in range(len(user_objs)):
     # Get the number of tweets liked
     tweetsLiked = dic["_source"]["favourites_count"]
 
+    protected = dic["_source"]["protected"]
+
     # Get the number of followers 
     followersCount = dic["_source"]["followers_count"]
 
@@ -95,6 +97,7 @@ for i in range(len(user_objs)):
                 "followers_count": followersCount,
                 "friends_count": friendsCount, 
                 "statuses_count": statuses_count,
+                "protected": protected,
                 "found_at": found_at, 
                 "age_h": age_h
     }

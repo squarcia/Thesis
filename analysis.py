@@ -22,12 +22,20 @@ df_user_objs = df_user_objs.sort_values(by=['id', 'found_at'])
 # I get all user objects with 28gg
 df_user_objs = df_user_objs[df_user_objs['age_h'] <= 672]
 
+# Get all the protected accounts
+list_of_id_protected = cf.deleteProtectedAccounts(df_user_objs)
+
+# Delete all the protected accounts
+df_user_objs_without_protected = df_user_objs[~df_user_objs['id'].isin(list_of_id_protected)]
+
 # 5000 user --> OK!
 groupby_df = df_user_objs.groupby("id", as_index=False)
 
+# Dataframe without protected profiles (used in tweets analysis)
+groupby_df_only_for_tweets = df_user_objs_without_protected.groupby("id", as_index=False)
+
 # 5000 user --> OK!
 groupby_df_inactives = df_inactives.groupby("id", as_index=False)
-
 
 #            ----- *** -----
 #     Create Dataframes for analysis          
@@ -45,8 +53,8 @@ _list_weeks_friends = cf.calculateFriendsPerWeeks(groupby_df)
 
 
 # Get aggregate data for statuses_count field
-_list_days_tweets = cf.calculateTweetsPerDays(groupby_df)
-_list_weeks_tweets = cf.calculateTweetsPerWeeks(groupby_df)
+_list_days_tweets = cf.calculateTweetsPerDays(groupby_df_only_for_tweets)
+_list_weeks_tweets = cf.calculateTweetsPerWeeks(groupby_df_only_for_tweets)
 
 
 
@@ -59,6 +67,7 @@ df_followers_7gg = pd.DataFrame(_list_days_followers)
 
 # Create the average weeks Dataframe
 df_followers_4week = pd.DataFrame(_list_weeks_followers)
+
 
 sS.showBoxPlots(df_followers_7gg, "first_week", "Followers")
 sS.showBoxPlots(df_followers_4week, "first_month", "Followers")
@@ -97,6 +106,7 @@ sS.showBoxPlots(df_tweets_4week, "first_month", "Tweets")
 
 
 
+
 #   ---------- *** ----------
 #        SHOWS HISTOGRAMS
 #   ---------- *** ----------
@@ -113,30 +123,43 @@ sS.showBins(groupby_df, 'friends_count')
 
 
 
+
+#   ---------- *** ----------
+#         TOP 20 TWEETERS
+#   ---------- *** ----------
+
+
+top_20_4week = df_tweets_4week.nlargest(20, "4Week")
+#print(top_20_4week)
+
+top_20_1week = df_tweets_4week.nlargest(20, "1Week")
+#print(top_20_1week)
+
+top_20_1day = df_tweets_7gg.nlargest(20, "7Day")
+#print(top_20_1day)
+
+
+
+
+#   ---------- *** ----------
+#   SUSPENDED/DELETED PROFILES
+#   ---------- *** ----------
+
+
+# Take the last records for each profile from the inactives table
+last_items_each_groups = pd.DataFrame(groupby_df_inactives.last())
+
+# Verify that the profiles that tweeted the most were then suspended
+top_20_4week_susdel = top_20_4week.merge(last_items_each_groups, how='inner', on='id')
+
+# Verify that the profiles that tweeted the most were then suspended
+top_20_7gg_susdel = top_20_1week.merge(last_items_each_groups, how='inner', on='id')
+
+
+
+
 #   ---------- *** ----------
 #        WORD CLOUD TWEETS
 #   ---------- *** ----------
-
-"""
-top_20 = df_tweets_4week.nlargest(20, "4Week")
-#print(top_20)
-
-print(df_inactives.loc[df_inactives['id'] == "1250135363785355264"])
-
-last_items_each_groups = pd.DataFrame(groupby_df_inactives.last())
-#print(last_items_each_groups)
-top_20 = top_20.merge(last_items_each_groups, how='inner', on='id')
-print(top_20)
-
-
-
-top_20 = df_followers_7gg.nlargest(20, "7Day")
-#print(top_20)
-last_items_each_groups = pd.DataFrame(groupby_df_inactives.last())
-#print(last_items_each_groups)
-top_20 = top_20.merge(last_items_each_groups, how='inner', on='id')
-print(top_20)
-"""
-
 
 
