@@ -34,7 +34,7 @@ def translateAndCopyTweets():
         j = 0
 
         # Open the file where will put in the translated tweet
-        f = open("tweets_translated.txt", "a")
+        f = open("./tweets/tweets_translated.txt", "a")
 
         for obj in objs:
             old_text = str(obj['full_text'])
@@ -47,7 +47,7 @@ def translateAndCopyTweets():
                 continue
             
             f.write(translated.text)
-            bar.update(j+1)
+            bar.update(j + 1)
             j = j + 1
 
         bar.finish()
