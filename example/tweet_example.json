@@ -1,0 +1,70 @@
+{
+    "contributors": null,
+    "coordinates": null,
+    "created_at": "Wed Apr 29 06:58:55 +0000 2020",
+    "display_text_range": [
+        46,
+        62
+    ],
+    "entities": {
+        "hashtags": [],
+        "symbols": [],
+        "urls": [],
+        "user_mentions": [
+            {
+                "id": 1056313745666916352,
+                "id_str": "1056313745666916352",
+                "indices": [
+                    0,
+                    14
+                ],
+                "name": "Doryam",
+                "screen_name": "DoryamOrdonez"
+            },
+            {
+                "id": 1203034663536779265,
+                "id_str": "1203034663536779265",
+                "indices": [
+                    15,
+                    31
+                ],
+                "name": "\ud83e\udd17",
+                "screen_name": "Alejand14500875"
+            },
+            {
+                "id": 1026649693059604480,
+                "id_str": "1026649693059604480",
+                "indices": [
+                    32,
+                    45
+                ],
+                "name": "Lizbeth Rodriguez",
+                "screen_name": "Soylizbethmx"
+            }
+        ]
+    },
+    "favorite_count": 0,
+    "favorited": false,
+    "full_text": "@DoryamOrdonez @Alejand14500875 @Soylizbethmx Era comportar \ud83e\udd23\ud83e\udd23",
+    "geo": null,
+    "id": 1255391094902263811,
+    "id_str": "1255391094902263811",
+    "in_reply_to_screen_name": "TktAndre",
+    "in_reply_to_status_id": 1255390883643568129,
+    "in_reply_to_status_id_str": "1255390883643568129",
+    "in_reply_to_user_id": 1250125100059430912,
+    "in_reply_to_user_id_str": "1250125100059430912",
+    "is_quote_status": false,
+    "lang": "es",
+    "place": null,
+    "retweet_count": 0,
+    "retweeted": false,
+    "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+    "truncated": false,
+    "user": {
+        "id_str": "1250125100059430912"
+    },
+    "meta": {
+        "found_at": "Sat May 16 18:14:35 +0000 2020"
+    }
+}

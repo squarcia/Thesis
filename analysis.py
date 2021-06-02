@@ -1,9 +1,8 @@
 import pandas as pd
-import numpy as np
-import pickle5 as pickle
-from datetime import datetime
 import util.calculate as cf
 import util.showStats as sS
+import util.tweets as tw
+
 
 # Create the inactives Dataframe
 inactives = pd.read_pickle("./pickle/inactives_key_data_0-5k.pickle")
@@ -36,6 +35,10 @@ groupby_df_only_for_tweets = df_user_objs_without_protected.groupby("id", as_ind
 
 # 5000 user --> OK!
 groupby_df_inactives = df_inactives.groupby("id", as_index=False)
+
+
+
+
 
 #            ----- *** -----
 #     Create Dataframes for analysis          
@@ -106,21 +109,19 @@ sS.showBoxPlots(df_tweets_4week, "first_month", "Tweets")
 
 
 
-
 #   ---------- *** ----------
 #        SHOWS HISTOGRAMS
 #   ---------- *** ----------
 
 
 # Tweets
-sS.showBins(groupby_df, 'statuses_count')
+sS.showBins(groupby_df_only_for_tweets, 'statuses_count')
 
 # Followers
 sS.showBins(groupby_df, 'followers_count')
 
 # Friends
 sS.showBins(groupby_df, 'friends_count')
-
 
 
 
@@ -140,7 +141,6 @@ top_20_1day = df_tweets_7gg.nlargest(20, "7Day")
 
 
 
-
 #   ---------- *** ----------
 #   SUSPENDED/DELETED PROFILES
 #   ---------- *** ----------
@@ -157,9 +157,10 @@ top_20_7gg_susdel = top_20_1week.merge(last_items_each_groups, how='inner', on='
 
 
 
-
 #   ---------- *** ----------
 #        WORD CLOUD TWEETS
 #   ---------- *** ----------
 
 
+tw.translateAndCopyTweets()
+tw.showWordCloud()

@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 #   ----- *** -----
-#      Inactives
+#      INACTIVES
 #   ----- *** -----
 
 
@@ -25,7 +25,7 @@ with open('./pickle/inactives_key_data_0-5k.pickle', 'wb') as g:
 
 
 #   ----- *** -----
-#      User Objs
+#    USER OBJECTS
 #   ----- *** -----
 
 

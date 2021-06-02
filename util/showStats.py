@@ -2,15 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import util.calculate as cf
 
-#   TIPS: 
-#   
-#   PERIOD: 
-#       - first_week: show first 7 days
-#       - first_month: show first 4 weeks
-#
-#   TYPE: 
-#       - Word used on y axis on graphs
-
 
 def showBoxPlots(df, period, type):
 

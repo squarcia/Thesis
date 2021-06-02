@@ -44,7 +44,6 @@ def calculateFollowersPerDays(groups):
         dic["id"] = id
 
         #protected = group["protected"].isin(['True'])
-        print(group)
     
 
         # Begin: 24
