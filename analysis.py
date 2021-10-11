@@ -113,7 +113,7 @@ sS.showBoxPlots(df_tweets_4week, "first_month", "Tweets")
 #        SHOWS HISTOGRAMS
 #   ---------- *** ----------
 
-
+"""
 # Tweets
 sS.showBins(groupby_df_only_for_tweets, 'statuses_count')
 
@@ -155,7 +155,7 @@ top_20_4week_susdel = top_20_4week.merge(last_items_each_groups, how='inner', on
 # Verify that the profiles that tweeted the most were then suspended
 top_20_7gg_susdel = top_20_1week.merge(last_items_each_groups, how='inner', on='id')
 
-
+print(top_20_4week_susdel)
 
 #   ---------- *** ----------
 #        WORD CLOUD TWEETS
@@ -164,3 +164,4 @@ top_20_7gg_susdel = top_20_1week.merge(last_items_each_groups, how='inner', on='
 
 tw.translateAndCopyTweets()
 tw.showWordCloud()
+"""
