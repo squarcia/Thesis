@@ -49,10 +49,10 @@ def showBoxPlots(df, period, type):
     df_avg = df.mean()
     df_avg_new = np.array(df_avg.values)
     avg_array = np.delete(df_avg_new, 0)
-    avg_array = round(avg_array, 2)
+    avg_array_def = np.round(avg_array, 2)
 
     # Calculate std. dev for each days/weeks
-    stds_array = round(df.std().to_numpy(), 2)
+    stds_array = np.round(df.std().to_numpy(), 2)
     
     # Calculate max for each days/weeks
     _max = np.array(df.max())
@@ -69,7 +69,7 @@ def showBoxPlots(df, period, type):
     fig1, ax1 = plt.subplots(1,1)
 
     # Create table values
-    table_vals = [avg_array, stds_array, _max_weeks]
+    table_vals = [avg_array_def, stds_array, _max_weeks]
 
     # Create table
     ax1.table(cellText=table_vals, colLabels=col_labels, rowLabels=row_labels, loc="center")
