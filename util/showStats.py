@@ -48,7 +48,8 @@ def showBoxPlots(df, period, type):
     # Calculate avg for each days/weeks
     df_avg = df.mean()
     df_avg_new = np.array(df_avg.values)
-    avg_array = round(np.delete(df_avg_new, 0), 2)
+    avg_array = np.delete(df_avg_new, 0)
+    avg_array = round(avg_array, 2)
 
     # Calculate std. dev for each days/weeks
     stds_array = round(df.std().to_numpy(), 2)
