@@ -94,7 +94,7 @@ def showBins(groupby_df, type):
     else:
         plt.title("Friends 1st Day")
 
-    plt.ylabel("Counts")
+    plt.ylabel("Numero di accounts")
     plt.xlabel("Bins")
     plt.grid(True) 
     plt.show()
@@ -108,7 +108,7 @@ def showBins(groupby_df, type):
     else:
         plt.title("Friends 7 Days")
         
-    plt.ylabel("Counts")
+    plt.ylabel("Numero di accounts")
     plt.xlabel("Bins")
     plt.grid(True) 
     plt.show()
@@ -122,7 +122,7 @@ def showBins(groupby_df, type):
     else:
         plt.title("Friends 28 Days")
         
-    plt.ylabel("Counts")
+    plt.ylabel("Numero di accounts")
     plt.xlabel("Bins")
     plt.grid(True) 
     plt.show()

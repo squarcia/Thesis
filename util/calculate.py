@@ -49,7 +49,7 @@ def calculateFollowersPerDays(groups):
         # Begin: 24
         # Finish: 168
         # Step: 24 = 1 day
-        for i in range(0, 168, 24):
+        for i in range(24, 192, 24):
 
             day = group.loc[group['age_h'] == i]
             #print(day)
@@ -144,7 +144,7 @@ def calculateFriendsPerDays(groups):
         # Begin: 0
         # Finish: 168
         # Step: 24
-        for i in range(0, 168, 24):
+        for i in range(24, 192, 24):
 
             day = group.loc[group['age_h'] == i]
             #print(day)
@@ -239,7 +239,7 @@ def calculateTweetsPerDays(groups):
         # Begin: 0
         # Finish: 168
         # Step: 24
-        for i in range(0, 168, 24):
+        for i in range(24, 192, 24):
 
             day = group.loc[group['age_h'] == i]
             #print(day)
@@ -355,3 +355,10 @@ def calculateBins(groups, x, y, type):
     
     return arr
 
+def showIfSuspended(df_inactives, id, hours):
+
+    df_top_follower = pd.DataFrame(df_inactives[df_inactives['id'] == id])
+    print(df_top_follower)
+    print(df_top_follower.sort_values(by=['age_h']))
+    row = df_top_follower.loc[df_top_follower['age_h'] == hours]
+    print(row)

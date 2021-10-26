@@ -8,6 +8,8 @@ import util.tweets as tw
 inactives = pd.read_pickle("./pickle/inactives_key_data_0-5k.pickle")
 df_inactives = pd.DataFrame(inactives)
 
+#cf.showIfSuspended(df_inactives, "1250129814779883520", 168.0)
+
 # Order the inactives Dataframe by id and ascending found_at date
 df_inactives = df_inactives.sort_values(by=['id', 'found_at'])
 
@@ -35,8 +37,6 @@ groupby_df_only_for_tweets = df_user_objs_without_protected.groupby("id", as_ind
 
 # 5000 user --> OK!
 groupby_df_inactives = df_inactives.groupby("id", as_index=False)
-
-
 
 
 
@@ -113,7 +113,7 @@ sS.showBoxPlots(df_tweets_4week, "first_month", "Tweets")
 #        SHOWS HISTOGRAMS
 #   ---------- *** ----------
 
-"""
+
 # Tweets
 sS.showBins(groupby_df_only_for_tweets, 'statuses_count')
 
@@ -122,6 +122,38 @@ sS.showBins(groupby_df, 'followers_count')
 
 # Friends
 sS.showBins(groupby_df, 'friends_count')
+
+
+
+#   ---------- *** ----------
+#     TOP 20 GAIN FOLLOWERS
+#   ---------- *** ----------
+
+
+top_20_4week = df_followers_4week.nlargest(20, "4Week")
+print(top_20_4week)
+
+top_20_1week = df_followers_4week.nlargest(20, "1Week")
+print(top_20_1week)
+
+top_20_1day = df_followers_7gg.nlargest(20, "7Day")
+print(top_20_1day)
+
+
+
+#   ---------- *** ----------
+#     TOP 20 GAIN FRIENDS
+#   ---------- *** ----------
+
+
+top_20_4week = df_friends_4week.nlargest(20, "4Week")
+print(top_20_4week)
+
+top_20_1week = df_friends_4week.nlargest(20, "1Week")
+print(top_20_1week)
+
+top_20_1day = df_friends_7gg.nlargest(20, "7Day")
+print(top_20_1day)
 
 
 
@@ -136,7 +168,7 @@ top_20_4week = df_tweets_4week.nlargest(20, "4Week")
 top_20_1week = df_tweets_4week.nlargest(20, "1Week")
 #print(top_20_1week)
 
-top_20_1day = df_tweets_7gg.nlargest(20, "7Day")
+top_20_1day = df_tweets_7gg.nlargest(20, "6Day")
 #print(top_20_1day)
 
 
@@ -147,15 +179,21 @@ top_20_1day = df_tweets_7gg.nlargest(20, "7Day")
 
 
 # Take the last records for each profile from the inactives table
-last_items_each_groups = pd.DataFrame(groupby_df_inactives.last())
+last_items_each_groups = pd.DataFrame(groupby_df_inactives)
 
 # Verify that the profiles that tweeted the most were then suspended
 top_20_4week_susdel = top_20_4week.merge(last_items_each_groups, how='inner', on='id')
+print(top_20_4week_susdel)
 
 # Verify that the profiles that tweeted the most were then suspended
 top_20_7gg_susdel = top_20_1week.merge(last_items_each_groups, how='inner', on='id')
+print(top_20_7gg_susdel)
 
-print(top_20_4week_susdel)
+# We have obtained the same results as in the previous analysis (28gg)
+top_20_7gg_susdel = top_20_1day.merge(last_items_each_groups, how='inner', on='id')
+print(top_20_7gg_susdel)
+
+
 
 #   ---------- *** ----------
 #        WORD CLOUD TWEETS
@@ -164,4 +202,5 @@ print(top_20_4week_susdel)
 
 tw.translateAndCopyTweets()
 tw.showWordCloud()
-"""
+
+
